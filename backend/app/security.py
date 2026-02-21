@@ -23,7 +23,7 @@ def create_access_token(data: dict):
     data.update({"exp": expire})
     return jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
 
-oauth2scheme = OAUth2PasswordBearer(tokenUrl="login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 def get_current_admin(token: str = Depends(oauth2_scheme)):
     try:
