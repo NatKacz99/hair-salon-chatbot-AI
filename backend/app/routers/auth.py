@@ -1,6 +1,6 @@
-from fastapi import API, Router, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from addp.database import get_db
+from app.database import get_db
 from app import models
 from app.security import verify_password, create_access_token
 
