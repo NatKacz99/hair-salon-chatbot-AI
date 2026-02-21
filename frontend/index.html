@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fryzjer Męski ALEKSANDER | Barber Warszawa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Fryzjer <span>Aleksander</span></div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Strona główna</a></li>
+    <li><a href="#" onclick="showPage('rezerwacja')" id="nav-rezerwacja">Rezerwacja wizyty</a></li>
+    <li><a href="#" onclick="showPage('cennik')" id="nav-cennik">Cennik</a></li>
+    <li><a href="#" onclick="showPage('kontakt')" id="nav-kontakt">Kontakt</a></li>
+    <li><a href="#" onclick="showPage('rezerwacja')" class="nav-cta">Umów się</a></li>
+  </ul>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: STRONA GŁÓWNA
+════════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-lines"></div>
+    <div class="hero-content">
+      <div class="hero-tag">✦ Barber & Fryzjer Męski · Warszawa</div>
+      <h1>Sztuka<em>strzyżenia.</em></h1>
+      <p>Precyzyjne strzyżenie włosów i brody w atmosferze klasycznego barbershopu. Bez kolejek, z rezerwacją online.</p>
+      <div class="btn-group">
+        <button class="btn-gold" onclick="showPage('rezerwacja')">Zarezerwuj wizytę</button>
+        <button class="btn-outline" onclick="showPage('cennik')">Zobacz cennik</button>
+      </div>
+    </div>
+    <div class="hero-deco">
+      <div class="deco-box">✂</div>
+      <div class="deco-box-row">
+        <div class="deco-box">◈</div>
+        <div class="deco-box">◉</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat">
+      <span class="stat-num">12+</span>
+      <span class="stat-label">lat doświadczenia</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">4.9</span>
+      <span class="stat-label">ocena Google</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">nagrody branżowe</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">2k+</span>
+      <span class="stat-label">zadowolonych klientów</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section">
+    <div class="section-tag">✦ Usługi</div>
+    <h2 class="section-title">Wybierz swoją usługę</h2>
+    <p class="section-lead">Oferujemy szeroki zakres usług fryzjerskich i barberskich. Każde strzyżenie to indywidualne podejście i dbałość o szczegóły.</p>
+
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon">✂</div>
+        <div class="service-name">Strzyżenie klasyczne</div>
+        <div class="service-desc">Precyzyjne strzyżenie włosów maszynką i nożyczkami. Obejmuje stylizację i wykończenie.</div>
+        <div class="service-price">70 PLN</div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🪒</div>
+        <div class="service-name">Pielęgnacja brody</div>
+        <div class="service-desc">Strzyżenie i modelowanie brody z użyciem brzytwy, kremu do golenia i olejku.</div>
+        <div class="service-price">50 PLN</div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">👑</div>
+        <div class="service-name">Włosy i broda</div>
+        <div class="service-desc">Kompleksowy pakiet: strzyżenie włosów i pełna pielęgnacja brody. Idealne combo.</div>
+        <div class="service-price">120 PLN</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section">
+    <div class="section-tag" style="color: var(--gold)">✦ Opinie</div>
+    <h2 class="section-title">Co mówią klienci</h2>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">„Najlepszy barber w Warszawie. Zawsze wychodzę zadowolony, a rezerwacja przez internet to strzał w dziesiątkę."</p>
+        <div class="review-author">Piotr K.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">„Profesjonalna obsługa, świetna atmosfera. Aleksander zna się na rzeczy i zawsze doradzi najlepszą fryzurę."</p>
+        <div class="review-author">Marcin W.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">„Byłem sceptyczny, ale teraz to moje miejsce numer jeden. Ceny przystępne, efekt rewelacyjny."</p>
+        <div class="review-author">Tomasz B.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section">
+    <div class="section-tag">✦ Nasz Zespół</div>
+    <h2 class="section-title">Poznaj naszych specjalistów</h2>
+    <p class="section-lead">Doświadczeni fryzjerzy i barberzy z pasją do swojego zawodu.</p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo">✂</div>
+        <div class="team-info">
+          <div class="team-name">Aleksander Kowalski</div>
+          <div class="team-role">Właściciel · Senior Barber</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo">✂</div>
+        <div class="team-info">
+          <div class="team-name">Michał Nowak</div>
+          <div class="team-role">Barber · Stylista</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo">✂</div>
+        <div class="team-info">
+          <div class="team-name">Damian Wiśniewski</div>
+          <div class="team-role">Fryzjer · Barber</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section" style="background: #f0ebe2;">
+    <div class="section-tag">✦ FAQ</div>
+    <h2 class="section-title">Najczęściej zadawane pytania</h2>
+
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Ile kosztuje strzyżenie włosów?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Strzyżenie klasyczne zaczyna się od 70 PLN. Szczegółowy cennik znajdziesz na stronie Cennik. Ceny są stałe i niezmienne, niezależnie od stopnia zaawansowania.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Jak zarezerwować wizytę?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Wizytę możesz zarezerwować przez formularz na stronie „Rezerwacja wizyty" lub telefonicznie pod numerem +48 600 123 456 w godzinach pracy salonu.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Jak długo trwa wizyta?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Strzyżenie włosów trwa ok. 25 minut, pielęgnacja brody ok. 20 minut, a pakiet włosy+broda to ok. 45 minut.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Czy akceptujecie płatność kartą?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Tak, akceptujemy płatności kartą oraz BLIK. Oczywiście płatność gotówkowa jest również możliwa.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Czy obsługujecie dzieci?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Oczywiście! Nasz salon jest przystosowany do strzyżenia dzieci. Strzyżenie chłopca to koszt 45 PLN.</div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: REZERWACJA WIZYTY
+════════════════════════════════════════════════ -->
+<div id="page-rezerwacja" class="page">
+
+  <div class="booking-hero">
+    <div class="section-tag">✦ Umów się</div>
+    <h1>Rezerwacja wizyty</h1>
+    <p>Zarezerwuj termin online i przyjdź o wyznaczonej godzinie — bez czekania, bez kolejki.</p>
+  </div>
+
+  <div class="booking-layout">
+    <div class="booking-form-area">
+      <div style="margin-bottom:2.5rem;">
+        <div class="section-tag">✦ Formularz</div>
+        <h2 class="section-title" style="font-size:1.8rem; margin-bottom:0.5rem;">Wypełnij formularz</h2>
+        <p style="color:var(--gray); font-size:0.88rem; font-weight:300;">Odpiszemy lub zadzwonimy z potwierdzeniem.</p>
+      </div>
+
+      <div class="form-group">
+        <label>Imię i nazwisko</label>
+        <input type="text" placeholder="Jan Kowalski">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Telefon</label>
+          <input type="tel" placeholder="+48 600 000 000">
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" placeholder="jan@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Usługa</label>
+        <select>
+          <option value="">— Wybierz usługę —</option>
+          <option>Strzyżenie klasyczne — 70 PLN</option>
+          <option>Pielęgnacja brody — 50 PLN</option>
+          <option>Włosy i broda — 120 PLN</option>
+          <option>Strzyżenie dziecka — 45 PLN</option>
+          <option>Fade / Skin Fade — 85 PLN</option>
+          <option>Koloryzacja — od 180 PLN</option>
+          <option>Dredy — wycena indywidualna</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Fryzjer</label>
+        <select>
+          <option value="">— Dowolny fryzjer —</option>
+          <option>Aleksander Kowalski</option>
+          <option>Michał Nowak</option>
+          <option>Damian Wiśniewski</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preferowana data</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Preferowana godzina</label>
+          <select>
+            <option>08:00</option><option>08:30</option>
+            <option>09:00</option><option>09:30</option>
+            <option>10:00</option><option>10:30</option>
+            <option>11:00</option><option>11:30</option>
+            <option>12:00</option><option>12:30</option>
+            <option>13:00</option><option>13:30</option>
+            <option>14:00</option><option>14:30</option>
+            <option>15:00</option><option>15:30</option>
+            <option>16:00</option><option>16:30</option>
+            <option>17:00</option><option>17:30</option>
+            <option>18:00</option><option>18:30</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Uwagi (opcjonalnie)</label>
+        <textarea placeholder="Dodatkowe informacje, np. preferowany styl..."></textarea>
+      </div>
+      <button class="form-submit" onclick="alert('Dziękujemy! Skontaktujemy się wkrótce z potwierdzeniem.')">Wyślij prośbę o rezerwację</button>
+    </div>
+
+    <div class="booking-info-area">
+      <div class="info-block">
+        <div class="info-block-title">Dane kontaktowe</div>
+        <p style="font-size:0.85rem; color:var(--gray); line-height:1.7; font-weight:300; margin-bottom:1rem;">
+          Wolisz zadzwonić? Chętnie umówimy Cię telefonicznie.
+        </p>
+        <a href="tel:48600123456" class="phone-link">+48 600 123 456</a>
+        <p style="font-size:0.82rem; color:var(--gray); font-weight:300;">ul. Marszałkowska 22/4, 00-001 Warszawa</p>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-title">Godziny otwarcia</div>
+        <table class="hours-table">
+          <tr><td>Poniedziałek</td><td>08:00 – 20:00</td></tr>
+          <tr><td>Wtorek</td><td>08:00 – 20:00</td></tr>
+          <tr><td>Środa</td><td>08:00 – 20:00</td></tr>
+          <tr><td>Czwartek</td><td>08:00 – 20:00</td></tr>
+          <tr><td>Piątek</td><td>08:00 – 20:00</td></tr>
+          <tr><td>Sobota</td><td>09:00 – 15:00</td></tr>
+          <tr class="closed"><td>Niedziela</td><td>Nieczynne</td></tr>
+        </table>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-title">Ważne informacje</div>
+        <ul style="list-style:none; font-size:0.85rem; color:var(--gray); line-height:2; font-weight:300;">
+          <li>✦ Rezerwacja obowiązkowa</li>
+          <li>✦ Przyjmujemy płatność kartą i BLIK</li>
+          <li>✦ Proszę przyjść 5 min przed wizytą</li>
+          <li>✦ Odwołanie do 2h przed terminem</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-rezerwacja -->
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: CENNIK
+════════════════════════════════════════════════ -->
+<div id="page-cennik" class="page">
+
+  <div class="price-hero">
+    <div class="section-tag">✦ Cennik</div>
+    <h1>Przejrzyste ceny</h1>
+    <p>Stałe i uczciwe ceny za wszystkie usługi. Bez niespodzianek przy kasie.</p>
+  </div>
+
+  <div class="price-section">
+    <div class="price-category">
+      <div class="price-category-title">Strzyżenie włosów</div>
+      <div class="price-category-divider"></div>
+      <table class="price-table">
+        <tr>
+          <td>
+            Strzyżenie klasyczne
+            <span class="price-sub">Maszynką i nożyczkami · ok. 25 min</span>
+          </td>
+          <td>70 PLN</td>
+        </tr>
+        <tr>
+          <td>
+            Fade / Skin Fade
+            <span class="price-sub">Precyzyjne przejście · ok. 30 min</span>
+          </td>
+          <td>85 PLN</td>
+        </tr>
+        <tr>
+          <td>
+            Strzyżenie dziecka (do 12 lat)
+            <span class="price-sub">Spokojne i precyzyjne strzyżenie · ok. 20 min</span>
+          </td>
+          <td>45 PLN</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="price-category">
+      <div class="price-category-title">Pielęgnacja brody</div>
+      <div class="price-category-divider"></div>
+      <table class="price-table">
+        <tr>
+          <td>
+            Strzyżenie i stylizacja brody
+            <span class="price-sub">Maszynką i nożyczkami · ok. 20 min</span>
+          </td>
+          <td>50 PLN</td>
+        </tr>
+        <tr>
+          <td>
+            Golenie brzytwą
+            <span class="price-sub">Hot towel + krem + brzytwa · ok. 25 min</span>
+          </td>
+          <td>65 PLN</td>
+        </tr>
+        <tr>
+          <td>
+            Pełna pielęgnacja brody premium
+            <span class="price-sub">Stylizacja + olejek + maska · ok. 35 min</span>
+          </td>
+          <td>90 PLN</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="price-category">
+      <div class="price-category-title">Pakiety</div>
+      <div class="price-category-divider"></div>
+      <table class="price-table">
+        <tr>
+          <td>
+            Włosy + Broda
+            <span class="price-sub">Strzyżenie klasyczne + pielęgnacja brody · ok. 45 min</span>
+          </td>
+          <td>120 PLN</td>
+        </tr>
+        <tr>
+          <td>
+            Fade + Broda
+            <span class="price-sub">Fade + stylizacja brody · ok. 55 min</span>
+          </td>
+          <td>150 PLN</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="price-category">
+      <div class="price-category-title">Usługi specjalne</div>
+      <div class="price-category-divider"></div>
+      <table class="price-table">
+        <tr>
+          <td>
+            Koloryzacja włosów
+            <span class="price-sub">Farbowanie jednolite · wycena po konsultacji</span>
+          </td>
+          <td>od 180 PLN</td>
+        </tr>
+        <tr>
+          <td>
+            Odsiwianie
+            <span class="price-sub">Delikatna koloryzacja · wycena po konsultacji</span>
+          </td>
+          <td>od 150 PLN</td>
+        </tr>
+        <tr>
+          <td>
+            Dredy
+            <span class="price-sub">Wycena indywidualna</span>
+          </td>
+          <td>wycena</td>
+        </tr>
+        <tr>
+          <td>
+            Wzory / Desenie
+            <span class="price-sub">Indywidualne wzory maszynką · dopłata do strzyżenia</span>
+          </td>
+          <td>+30 PLN</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="price-cta">
+    <h2>Gotowy na zmianę?</h2>
+    <p>Zarezerwuj wizytę już teraz — bez czekania w kolejce.</p>
+    <button class="btn-gold" onclick="showPage('rezerwacja')">Zarezerwuj wizytę</button>
+  </div>
+
+</div><!-- /page-cennik -->
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: KONTAKT
+════════════════════════════════════════════════ -->
+<div id="page-kontakt" class="page">
+
+  <div class="contact-hero">
+    <div class="section-tag">✦ Znajdź nas</div>
+    <h1>Kontakt</h1>
+    <p>Zapraszamy do kontaktu telefonicznego lub przez formularz. Chętnie odpowiemy na wszystkie pytania.</p>
+  </div>
+
+  <div class="contact-layout">
+    <div class="contact-info-panel">
+
+      <div class="contact-detail">
+        <div class="contact-detail-label">Adres</div>
+        <div class="contact-detail-value">
+          <strong>ul. Marszałkowska 22/4</strong><br>
+          00-001 Warszawa<br>
+          <small style="color:var(--gray); font-size:0.82rem;">Wejście od ulicy Widok, II piętro</small>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-label">Telefon</div>
+        <div class="contact-detail-value">
+          <a href="tel:48600123456"><strong>+48 600 123 456</strong></a>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-label">E-mail</div>
+        <div class="contact-detail-value">
+          <a href="mailto:kontakt@fryzjeraleksander.pl">kontakt@fryzjeraleksander.pl</a>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-label">Godziny otwarcia</div>
+        <div class="contact-detail-value">
+          Pn – Pt: 08:00 – 20:00<br>
+          Sobota: 09:00 – 15:00<br>
+          <span style="color:var(--gray); font-size:0.85rem;">Niedziela: nieczynne</span>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-label">Social media</div>
+        <div class="contact-detail-value">
+          <a href="#">Facebook</a> &nbsp;·&nbsp; <a href="#">Instagram</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="contact-map-panel">
+      <div class="contact-map-mock">
+        📍
+        <span>Mapa dojazdu</span>
+        <small style="font-size:0.72rem; color:#8a857d;">ul. Marszałkowska 22/4, Warszawa</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form-section">
+    <div class="section-tag">✦ Napisz do nas</div>
+    <h2 class="section-title">Formularz kontaktowy</h2>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1.8rem;">
+      <div class="form-group" style="margin:0">
+        <label>Imię i nazwisko</label>
+        <input type="text" placeholder="Jan Kowalski">
+      </div>
+      <div class="form-group" style="margin:0">
+        <label>Telefon / E-mail</label>
+        <input type="text" placeholder="+48 600 000 000">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Temat</label>
+      <input type="text" placeholder="Pytanie o cennik / Rezerwacja / Inne">
+    </div>
+    <div class="form-group">
+      <label>Wiadomość</label>
+      <textarea placeholder="Opisz, jak możemy pomóc..."></textarea>
+    </div>
+    <button class="btn-gold" onclick="alert('Wiadomość wysłana! Odpiszemy wkrótce.')">Wyślij wiadomość</button>
+  </div>
+
+</div><!-- /page-kontakt -->
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Fryzjer <span>Aleksander</span></div>
+      <p class="footer-desc">Klasyczny barber shop w sercu Warszawy. Precyzyjne strzyżenie, uczciwe ceny i przyjazna atmosfera od ponad 12 lat.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Nawigacja</div>
+      <ul class="footer-links">
+        <li><a onclick="showPage('home')">Strona główna</a></li>
+        <li><a onclick="showPage('rezerwacja')">Rezerwacja wizyty</a></li>
+        <li><a onclick="showPage('cennik')">Cennik</a></li>
+        <li><a onclick="showPage('kontakt')">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Informacje</div>
+      <ul class="footer-links">
+        <li><a href="#">Polityka prywatności</a></li>
+        <li><a href="#">Polityka cookies</a></li>
+        <li><a href="#">Regulamin salonu</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 – 2026 Fryzjer Aleksander · Warszawa</span>
+    <span>ul. Marszałkowska 22/4 · +48 600 123 456</span>
+  </div>
+</footer>
+
+
+<script>
+  function showPage(id) {
+    // hide all
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+    // show target
+    const page = document.getElementById('page-' + id);
+    if (page) {
+      page.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // activate nav link
+    const navLink = document.getElementById('nav-' + id);
+    if (navLink) navLink.classList.add('active');
+
+    return false;
+  }
+
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    item.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
