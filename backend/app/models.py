@@ -31,6 +31,7 @@ class Booking(Base):
     booking_datetime = Column(DateTime, nullable=False)
     status = Column(String, default="scheduled")
     created_at = Column(DateTime, default = datetime.utcnow)
+    notes = Column(String(500), nullable=True)
 
     __table_args__ = (
         UniqueConstraint("hairdresser_id", "booking_datetime"),

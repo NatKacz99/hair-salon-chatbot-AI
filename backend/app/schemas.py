@@ -1,14 +1,15 @@
 import string
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
 
 class HairdresserCreate(BaseModel):
     first_name: str
-    specialization: str
+    specialization: str = None
 
 class HairdresserOut(BaseModel):
     first_name: str
-    specialization: str
+    specialization: str = None
     is_active: bool
     id: int
 
@@ -32,11 +33,13 @@ class BookingCreate(BaseModel):
     client_name: str
     client_phone: str
     booking_datetime: datetime
+    notes: Optional[str] = None
 
 class BookingOut(BookingCreate):
     status: str
     created_at: datetime
     id: int
+    notes: Optional[str] = None
 
     class Config:
         from_attributes = True
