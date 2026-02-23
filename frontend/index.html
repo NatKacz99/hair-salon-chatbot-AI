@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fryzjer Męski ALEKSANDER | Barber Warszawa</title>
+<link rel="stylesheet" href="css/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- ═══ NAVIGATION ═══ -->
 <nav>
   <div class="nav-logo" onclick="showPage('home')">Fryzjer <span>Aleksander</span></div>
   <ul class="nav-links">
@@ -21,13 +21,8 @@
   </ul>
 </nav>
 
-
-<!-- ═══════════════════════════════════════════════
-     PAGE: STRONA GŁÓWNA
-════════════════════════════════════════════════ -->
 <div id="page-home" class="page active">
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-lines"></div>
@@ -131,21 +126,21 @@
       <div class="team-card">
         <div class="team-photo">✂</div>
         <div class="team-info">
-          <div class="team-name">Aleksander Kowalski</div>
+          <div class="team-name">Marcin Kowalski</div>
           <div class="team-role">Właściciel · Senior Barber</div>
         </div>
       </div>
       <div class="team-card">
         <div class="team-photo">✂</div>
         <div class="team-info">
-          <div class="team-name">Michał Nowak</div>
+          <div class="team-name">Karol Nowak</div>
           <div class="team-role">Barber · Stylista</div>
         </div>
       </div>
       <div class="team-card">
         <div class="team-photo">✂</div>
         <div class="team-info">
-          <div class="team-name">Damian Wiśniewski</div>
+          <div class="team-name">Adam Wiśniewski</div>
           <div class="team-role">Fryzjer · Barber</div>
         </div>
       </div>
@@ -186,22 +181,12 @@
         </div>
         <div class="faq-a">Tak, akceptujemy płatności kartą oraz BLIK. Oczywiście płatność gotówkowa jest również możliwa.</div>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Czy obsługujecie dzieci?
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a">Oczywiście! Nasz salon jest przystosowany do strzyżenia dzieci. Strzyżenie chłopca to koszt 45 PLN.</div>
-      </div>
     </div>
   </section>
 
 </div><!-- /page-home -->
 
 
-<!-- ═══════════════════════════════════════════════
-     PAGE: REZERWACJA WIZYTY
-════════════════════════════════════════════════ -->
 <div id="page-rezerwacja" class="page">
 
   <div class="booking-hero">
@@ -220,48 +205,38 @@
 
       <div class="form-group">
         <label>Imię i nazwisko</label>
-        <input type="text" placeholder="Jan Kowalski">
+        <input type="text" id="input-name" placeholder="Jan Kowalski">
+        <span class="error-message" id="error-name"></span>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>Telefon</label>
-          <input type="tel" placeholder="+48 600 000 000">
-        </div>
-        <div class="form-group">
-          <label>E-mail</label>
-          <input type="email" placeholder="jan@email.com">
+          <input type="tel" id="input-phone" placeholder="+48 600 000 000">
+          <span class="error-message" id="error-phone"></span>
         </div>
       </div>
       <div class="form-group">
         <label>Usługa</label>
-        <select>
+        <select id="select-service" onChange="loadFreeTerms()">
           <option value="">— Wybierz usługę —</option>
-          <option>Strzyżenie klasyczne — 70 PLN</option>
-          <option>Pielęgnacja brody — 50 PLN</option>
-          <option>Włosy i broda — 120 PLN</option>
-          <option>Strzyżenie dziecka — 45 PLN</option>
-          <option>Fade / Skin Fade — 85 PLN</option>
-          <option>Koloryzacja — od 180 PLN</option>
-          <option>Dredy — wycena indywidualna</option>
         </select>
+        <span class="error-message" id="error-service"></span>
       </div>
       <div class="form-group">
         <label>Fryzjer</label>
-        <select>
+        <select id="select-hairdresser" onChange="loadFreeTerms()">
           <option value="">— Dowolny fryzjer —</option>
-          <option>Aleksander Kowalski</option>
-          <option>Michał Nowak</option>
-          <option>Damian Wiśniewski</option>
         </select>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>Preferowana data</label>
-          <input type="date">
+          <input type="date" id="input-date" onChange="loadFreeTerms()">
+          <span class="error-message" id="error-date"></span>
         </div>
         <div class="form-group">
           <label>Preferowana godzina</label>
-          <select>
+          <select id="select-time">
             <option>08:00</option><option>08:30</option>
             <option>09:00</option><option>09:30</option>
             <option>10:00</option><option>10:30</option>
@@ -278,9 +253,9 @@
       </div>
       <div class="form-group">
         <label>Uwagi (opcjonalnie)</label>
-        <textarea placeholder="Dodatkowe informacje, np. preferowany styl..."></textarea>
+        <textarea id="input-notes" placeholder="Dodatkowe informacje, np. preferowany styl..."></textarea>
       </div>
-      <button class="form-submit" onclick="alert('Dziękujemy! Skontaktujemy się wkrótce z potwierdzeniem.')">Wyślij prośbę o rezerwację</button>
+      <button class="form-submit" onclick="sendBooking()">Wyślij prośbę o rezerwację</button>
     </div>
 
     <div class="booking-info-area">
@@ -318,12 +293,8 @@
     </div>
   </div>
 
-</div><!-- /page-rezerwacja -->
+</div>
 
-
-<!-- ═══════════════════════════════════════════════
-     PAGE: CENNIK
-════════════════════════════════════════════════ -->
 <div id="page-cennik" class="page">
 
   <div class="price-hero">
@@ -344,20 +315,6 @@
           </td>
           <td>70 PLN</td>
         </tr>
-        <tr>
-          <td>
-            Fade / Skin Fade
-            <span class="price-sub">Precyzyjne przejście · ok. 30 min</span>
-          </td>
-          <td>85 PLN</td>
-        </tr>
-        <tr>
-          <td>
-            Strzyżenie dziecka (do 12 lat)
-            <span class="price-sub">Spokojne i precyzyjne strzyżenie · ok. 20 min</span>
-          </td>
-          <td>45 PLN</td>
-        </tr>
       </table>
     </div>
 
@@ -372,25 +329,11 @@
           </td>
           <td>50 PLN</td>
         </tr>
-        <tr>
-          <td>
-            Golenie brzytwą
-            <span class="price-sub">Hot towel + krem + brzytwa · ok. 25 min</span>
-          </td>
-          <td>65 PLN</td>
-        </tr>
-        <tr>
-          <td>
-            Pełna pielęgnacja brody premium
-            <span class="price-sub">Stylizacja + olejek + maska · ok. 35 min</span>
-          </td>
-          <td>90 PLN</td>
-        </tr>
       </table>
     </div>
 
     <div class="price-category">
-      <div class="price-category-title">Pakiety</div>
+      <div class="price-category-title">Pakiet</div>
       <div class="price-category-divider"></div>
       <table class="price-table">
         <tr>
@@ -400,50 +343,9 @@
           </td>
           <td>120 PLN</td>
         </tr>
-        <tr>
-          <td>
-            Fade + Broda
-            <span class="price-sub">Fade + stylizacja brody · ok. 55 min</span>
-          </td>
-          <td>150 PLN</td>
-        </tr>
       </table>
     </div>
 
-    <div class="price-category">
-      <div class="price-category-title">Usługi specjalne</div>
-      <div class="price-category-divider"></div>
-      <table class="price-table">
-        <tr>
-          <td>
-            Koloryzacja włosów
-            <span class="price-sub">Farbowanie jednolite · wycena po konsultacji</span>
-          </td>
-          <td>od 180 PLN</td>
-        </tr>
-        <tr>
-          <td>
-            Odsiwianie
-            <span class="price-sub">Delikatna koloryzacja · wycena po konsultacji</span>
-          </td>
-          <td>od 150 PLN</td>
-        </tr>
-        <tr>
-          <td>
-            Dredy
-            <span class="price-sub">Wycena indywidualna</span>
-          </td>
-          <td>wycena</td>
-        </tr>
-        <tr>
-          <td>
-            Wzory / Desenie
-            <span class="price-sub">Indywidualne wzory maszynką · dopłata do strzyżenia</span>
-          </td>
-          <td>+30 PLN</td>
-        </tr>
-      </table>
-    </div>
   </div>
 
   <div class="price-cta">
@@ -452,12 +354,9 @@
     <button class="btn-gold" onclick="showPage('rezerwacja')">Zarezerwuj wizytę</button>
   </div>
 
-</div><!-- /page-cennik -->
+</div>
 
 
-<!-- ═══════════════════════════════════════════════
-     PAGE: KONTAKT
-════════════════════════════════════════════════ -->
 <div id="page-kontakt" class="page">
 
   <div class="contact-hero">
@@ -545,8 +444,6 @@
 
 </div><!-- /page-kontakt -->
 
-
-<!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-grid">
     <div>
@@ -582,18 +479,15 @@
 
 <script>
   function showPage(id) {
-    // hide all
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
 
-    // show target
     const page = document.getElementById('page-' + id);
     if (page) {
       page.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // activate nav link
     const navLink = document.getElementById('nav-' + id);
     if (navLink) navLink.classList.add('active');
 
@@ -605,5 +499,7 @@
     item.classList.toggle('open');
   }
 </script>
+<script src="js/validation.js"></script>
+<script src="js/booking.js"></script>
 </body>
 </html>
