@@ -3,7 +3,8 @@
     --gold: #c9a84c;
     --gray: #7a7570;
     --cream: #f5f0e8;
-    --gold-light: #e8d5a3
+    --gold-light: #e8d5a3;
+    --danger: #c94c4c;
 }
 
 * {
@@ -131,4 +132,11 @@ body {
 
 .login-btn:hover {
     background: var(--gold-light)
+}
+
+.login-error {
+    color: var(--danger);
+    font-size: 0.82rem;
+    margin-top: 0.8rem;
+    display: none
 }
