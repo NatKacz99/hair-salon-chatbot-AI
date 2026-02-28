@@ -1,5 +1,7 @@
+URL_BASE = "http://127.0.0.1:8000";
+
 async function loadServices() {
-    const res = await fetch('http://127.0.0.1:8000/services');
+    const res = await fetch(`${URL_BASE}/services`);
     const services = await res.json();
     const select = document.getElementById('select-service');
     services.forEach(service => {
@@ -8,7 +10,7 @@ async function loadServices() {
 }
 
 async function loadHairdressers() {
-    const res = await fetch('http://127.0.0.1:8000/hairdressers');
+    const res = await fetch(`${URL_BASE}/hairdressers`);
     const hairdressers = await res.json();
     const select = document.getElementById('select-hairdresser')
     hairdressers.forEach(hairdresser => {
@@ -23,7 +25,7 @@ async function loadFreeTerms() {
 
     if (!hairdresserId || !date) return;
 
-    const res = await fetch(`http://127.0.0.1:8000/available-slots?hairdresser_id=${hairdresserId}&date=${date}&service_id=${service_id}`);
+    const res = await fetch(`${URL_BASE}/available-slots?hairdresser_id=${hairdresserId}&date=${date}&service_id=${service_id}`);
     const outcome = await res.json();
 
     const select = document.getElementById('select-time');
@@ -44,8 +46,8 @@ async function sendBooking() {
 
     const hairdresserId = document.getElementById('select-hairdresser').value;
     const url = hairdresserId
-    ? 'http://127.0.0.1:8000/bookings'
-    : 'http://127.0.0.1:8000/bookings/any-hairdresser'
+    ? `${URL_BASE}/bookings`
+    : `${URL_BASE}/bookings/any-hairdresser`
 
     const data = {
         hairdresser_id: hairdresserId ? parseInt(hairdresserId) : 0,
