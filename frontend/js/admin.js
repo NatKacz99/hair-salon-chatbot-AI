@@ -27,3 +27,24 @@ window.onload = function() {
         showDashboardAfterLogin();
     }
 }
+
+function showAdminPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+    document.querySelectorAll('.navigation-item').forEach(item => item.classList.remove('active'));
+
+    document.getElementById('page-' + page).classList.add('active');
+
+    event.currentTarget.classList.add('active');
+
+    const titles = {
+        'reservations': 'Rezerwacje',
+        'hairdressers': 'Fryzjerzy'
+    };
+    document.getElementById('topbar-title').textContent = titles[page];
+}
+
+function openAddHairdresser() {
+    const modal = new bootstrap.Modal(document.getElementById('modal-add-hairdresser'));
+    modal.show();
+}

@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel Admina - Fryzjer Aleksander</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/admin.css">
 </head>
 
@@ -27,8 +26,165 @@
 </div>
 
 <div id="dashboard">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-name">Fryzjer Aleksander</div>
+      <div class="sidebar-brand-subname">Panel administracyjny</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="navigation-section-title">Główne</div>
+      <div class="navigation-item active" onClick="showAdminPage('reservations')">
+        <span class="navigation-icon">📋</span> Rezerwacje
+      </div>
+      <div class="navigation-item" onClick="showAdminPage('hairdressers')">
+        <span class="navigation-icon">✂️</span> Fryzjerzy
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-info">
+        <div>
+          <div class="admin-name" id="admin-name-display">Admin</div>
+          <div class="admin-role">Administrator</div>
+        </div>
+      </div>
+      <button class="logout-btn">Wyloguj się</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Rezerwacje</div>
+      <div class="topbar-date" id="topbar-date"></div>
+    </div>
+
+    <div class="page active" id="page-reservations">
+      <div class="section-header">
+        <div class="section-title">Lista rezerwacji</div>
+        <div class="filters">
+          <select class="filter-select" id="filter-status" onChange="filterReservations()">
+            <option value="">Wszystkie statusy</option>
+            <option value="pending">Oczekujące</option>
+            <option value="confirmed">Potwierdzone</option>
+            <option value="cancelled">Anulowane</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Klient</th>
+              <th>Telefon</th>
+              <th>Fryzjer</th>
+              <th>Usługa</th>
+              <th>Data i godzina</th>
+              <th>Uwagi</th>
+              <th>Status</th>
+              <th>Akcje</th>
+            </tr>
+          </thead>
+          <tbody id="reservations-tbody">
+            <tr>
+              <td colspan="9">
+                <div class="empty-state">
+                  <div class="empty-state-icon">📋</div>
+                  <div class="empty-state-text">Ładowanie rezerwacji...</div>
+                </div>
+              </td>
+            </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="page" id="page-hairdressers">
+      <div class="section-header">
+        <div class="section-title">Fryzjerzy</div>
+        <button class="btn btn-gold" onClick="openAddHairdresser()">+ Dodaj fryzjera</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Imię</th>
+              <th>Specjalizacja</th>
+              <th>Status</th>
+              <th>Akcje</th>
+            </tr>
+          </thead>
+          <tbody id="hairdressers-tbody">
+            <tr>
+              <td colspan="5">
+                <div class="empty-state">
+                  <div class="empty-state-icon">✂️</div>
+                  <div class="empty-state-text">Ładowanie fryzjerów...</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
 </div>
 
+<div class="modal fade" id="modal-add-hairdresser" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dodaj fryzjera</h5>
+        <button type="button" data-bs-dismiss="modal">x</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Imię</label>
+          <input type="text" id="new-hairdresser-name" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Specjalizacja</label>
+          <input type="text" id="new-hairdresser-specialization" class="form-input">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-bs-dismiss="modal">Anuluj</button>
+        <button class="btn btn-gold" onclick="addHairdresser()">Dodaj</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-change-status" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Zmień status rezerwacji</h5>
+        <button type="button" data-bs-dismiss="modal">x</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="status-booking">
+        <div class="form-group">
+          <label class="form-label">Nowy status</label>
+          <select id="new-status" class="form-input">
+            <option value="pending">Oczekująca</option>
+            <option value="confirmed">Potwierdzona</option>
+            <option value="cancelled">Anulowana</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-bs-dismiss="modal">Anuluj</button>
+        <button class="btn btn-gold" onclick="changeStatus()">Zapisz</button>
+      </div>
+    </div>
+  </div>
+
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/admin.js"></script>
 </body>
