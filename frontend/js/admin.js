@@ -36,6 +36,50 @@ window.onload = function() {
     }
 }
 
+let allHairdressers = [];
+
+async function loadAllHairdressers() {
+    const token = localStorage.getItem('admin_token');
+    const res = await fetch(`${URL_BASE}/admin/hairdressers`, {
+        headers: {'Authorization': `Bearer ${token}`}
+    })
+
+    if (!res.ok) {
+        console.error('Błąd pobierania fryzjerów', res.status);
+        return;
+    }
+
+    allHairdressers = await res.json();
+    renderHairdressers(allHairdressers);
+}
+
+function renderHairdressers(hairdressers) {
+    const tbody = document.getElementById('hairdressers-tbody');
+
+    if (hairdressers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5">
+        <div class="empty-state">
+            <div class="empty-state-icon">✂️</div>
+            <div class="empty-state-text>Brak fryzjerów</div>
+        </div></td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = hairdressers.map(hairdresser => `
+        <tr>
+            <td>${hairdresser.id}</td>
+            <td>${hairdresser.first_name}</td>
+            <td>${hairdresser.specialization || "-"}</td>
+            <td><span class="badge ${hairdresser.is_active ? 
+                'badge_confirmed' : 'badge_cancelled'}">
+                    ${hairdresser.is_active ? 'Aktywny' : 'Nieaktywny'}
+            </span></td>
+            <td>
+                <button class="btn btn-danger btn-sm" onClick="deleteHairdresser(${hairdresser.id})">Usuń</button>
+            </td>
+        </tr>`).join('');
+}
+
 function showAdminPage(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
@@ -50,6 +94,10 @@ function showAdminPage(page) {
         'hairdressers': 'Fryzjerzy'
     };
     document.getElementById('topbar-title').textContent = titles[page];
+
+    if (page === 'hairdressers') {
+        loadAllHairdressers();
+    }
 }
 
 function openAddHairdresser() {
@@ -148,6 +196,7 @@ async function changeStatus() {
         alert('Nie udało się zmienić statusu. Spróbuj ponownie.');
     }
 }
+
 
 function handleLogout() {
     localStorage.removeItem('admin_token');

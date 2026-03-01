@@ -12,6 +12,10 @@ router = APIRouter()
 def get_hairdressers(db: Session = Depends(get_db)):
     return db.query(models.Hairdresser).filter(models.Hairdresser.is_active == True).all()
 
+@router.get("/admin/hairdressers", response_model=List[HairdresserOut])
+def get_all_hairdressers(db: Session = Depends(get_db), admin = Depends(get_current_admin)):
+    return db.query(models.Hairdresser).all()
+
 @router.post("/admin/hairdressers", response_model=HairdresserOut)
 def add_hairdresser(data: HairdresserCreate, db: Session = Depends(get_db), admin = Depends(get_current_admin)):
     hairdresser = models.Hairdresser(**data.dict())
