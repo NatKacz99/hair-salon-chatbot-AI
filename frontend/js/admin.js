@@ -17,9 +17,6 @@ async function login() {
         localStorage.setItem('admin_email', email);
         showDashboardAfterLogin();
     } 
-    else if (response.status === 401) {
-        logout();
-    }
     else {
         document.getElementById('login-error').style.display = "block"
     }
@@ -49,6 +46,11 @@ async function loadAllHairdressers() {
         headers: {'Authorization': `Bearer ${token}`}
     })
 
+    if (res.status === 401) {
+        handleLogout();
+        return;
+    }
+
     if (!res.ok) {
         console.error('Błąd pobierania fryzjerów', res.status);
         return;
@@ -65,7 +67,7 @@ function renderHairdressers(hairdressers) {
         tbody.innerHTML = `<tr><td colspan="5">
         <div class="empty-state">
             <div class="empty-state-icon">✂️</div>
-            <div class="empty-state-text>Brak fryzjerów</div>
+            <div class="empty-state-text">Brak fryzjerów</div>
         </div></td></tr>`;
         return;
     }
@@ -80,7 +82,7 @@ function renderHairdressers(hairdressers) {
                     ${hairdresser.is_active ? 'Aktywny' : 'Nieaktywny'}
             </span></td>
             <td>
-                <button class="btn btn-danger btn-sm" onClick="deleteHairdresser(${hairdresser.id})">Usuń</button>
+                <button class="btn btn-danger btn-sm" onClick="openDeleteHairdresserModal(${hairdresser.id})">Usuń</button>
             </td>
         </tr>`).join('');
 }
@@ -131,6 +133,11 @@ async function addHairdresser() {
                 specialization: specialization || null
             })
         });
+
+        if (res.status === 401) {
+            handleLogout();
+            return;
+        }
     
         if (res.ok) {
             bootstrap.Modal.getInstance(
@@ -163,6 +170,11 @@ async function loadReservations() {
     const res = await fetch(`${URL_BASE}/admin/bookings`, {
         headers: {'Authorization': `Bearer ${token}`}
     });
+
+    if (res.status === 401) {
+        handleLogout();
+        return;
+    }
 
     if (!res.ok) {
         console.error('Błąd pobierania rezerwacji ', res.status);
@@ -241,6 +253,11 @@ async function changeStatus() {
         headers: {'Authorization': `Bearer ${token}`}
     });
 
+    if (res.status === 401) {
+        handleLogout();
+        return;
+    }
+
     if (res.ok) {
         bootstrap.Modal.getInstance(document.getElementById('modal-change-status')).hide();
         loadReservations();
@@ -249,6 +266,42 @@ async function changeStatus() {
     }
 }
 
+let barberIdToDelete = null;
+
+function openDeleteHairdresserModal(id) {
+    barberIdToDelete = id;
+
+    const modal = new bootstrap.Modal(
+        document.getElementById('confirmation-barber-delete')
+    );
+    modal.show()
+}
+
+async function confirmDeleteHairdresser()  {
+    if(!barberIdToDelete) return;
+
+    const token = localStorage.getItem('admin_token');
+
+    const res = await fetch(`${URL_BASE}/admin/hairdressers/${barberIdToDelete}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}` 
+        }
+    });
+
+    if (res.status == 401) {
+        handleLogout();
+        return;
+    }
+
+    if (res.ok) {
+        bootstrap.Modal.getInstance(document.getElementById('confirmation-barber-delete'))
+            .hide();
+        loadAllHairdressers();
+    } else {
+        alert('Nie udało się dezaktyować statusu barbera. Spróbuj ponownie.');
+    }
+}
 
 function handleLogout() {
     localStorage.removeItem('admin_token');

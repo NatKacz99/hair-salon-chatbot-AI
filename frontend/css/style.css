@@ -593,6 +593,30 @@ nav {
 
 .form-submit:hover { background: var(--bark); }
 
+#booking-message {
+  padding: 1rem 1.2rem;
+  font-size: 0.88rem;
+  margin-top: 1rem;
+  display: none;
+  border-radius: 4px;
+}
+
+#booking-message.success {
+  color: #2d6a4f;
+  border: 1px solid rgba(76, 175, 125, 0.4);
+  background: rgba(76, 175, 125, 0.08)
+}
+
+#booking-message.success::before {
+  content: "✓ ";
+  font-weight: 700
+}
+
+#booking-message.error::before {
+  content: "✕ ";
+  font-weight: 700;
+}
+
 .info-block { margin-bottom: 3rem; }
 
 .info-block-title {

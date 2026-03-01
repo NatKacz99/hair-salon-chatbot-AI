@@ -41,6 +41,13 @@ async function loadFreeTerms() {
     });
 }
 
+function showBookingMessage(message, type) {
+    const messageArea = document.getElementById('booking-message');
+    messageArea.textContent = message;
+    messageArea.className = type;
+    messageArea.style.display = 'block';
+}
+
 async function sendBooking() {
     if (!validateBookingForm()) return;
 
@@ -66,9 +73,9 @@ async function sendBooking() {
     });
 
     if (res.ok) {
-        alert('Dziękujemy, wkrótce skontaktujemy się z potwierdzeniem rezerwacji!');
+        showBookingMessage('Dziękujemy, wkrótce skontaktujemy się z potwierdzeniem rezerwacji!', 'success');
     } else {
-        alert('Coś poszło nie tak, spróbuj ponownie!')
+        showBookingMessage('Coś poszło nie tak, spróbuj ponownie!', 'error')
     }
 }
 

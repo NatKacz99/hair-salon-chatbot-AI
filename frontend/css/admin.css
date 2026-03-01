@@ -389,13 +389,31 @@ body {
     letter-spacing: 0.08rem;
     text-transform: uppercase;
     cursor: pointer;
-    border: nonr;
     transition: all 0.2s;
 }
 
 .btn-gold {
     background: var(--gold); 
-    color: var(--dark)
+    color: var(--dark);
+    border: none
+}
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--light-gray);
+    color: var(--gray);
+}
+.btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+.btn-danger {
+    background: transparent; 
+    border: 1px solid rgba(201, 76, 76, 0.3);
+    color: var(--danger)
+}
+.btn-danger:hover {
+    background: var(--danger);
+    color: white
 }
 
 .modal {
