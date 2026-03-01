@@ -7,6 +7,7 @@
     --danger: #c94c4c;
     --sidebar-width: 260px;
     --light-gray: #e8e3db;
+    --warning: #e8a84c;
 }
 
 * {
@@ -441,3 +442,22 @@ body {
     justify-content: flex-end;
     margin-top: 1.5rem;
 }
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.badge-pending {background: rgba(232, 168, 76, 0.12); color: var(--warning)}
+.badge-confirmed {
+    background: rgba(76, 175, 125, 0.12); color: var(--success)
+}
+.badge-cancelled {
+    background: rgba(201, 76, 76, 0.12); color: var(--danger)
+}
+.badge-active {background: rgba(75, 175, 125, 0.12); color: var(--success)}
+.badge-inactive {background: rgba(201, 76, 76, 0.12); color: var(--danger)}
