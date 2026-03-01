@@ -461,3 +461,14 @@ body {
 }
 .badge-active {background: rgba(75, 175, 125, 0.12); color: var(--success)}
 .badge-inactive {background: rgba(201, 76, 76, 0.12); color: var(--danger)}
+
+.error-message {
+    color: red !important;
+    font-size: 0.8rem;
+    display: none;
+    margin-top: 2px;
+  }
+  
+  .error-message.visible {
+    display: block;
+  }

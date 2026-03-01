@@ -1,15 +1,15 @@
 import string
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import Optional
 
 class HairdresserCreate(BaseModel):
-    first_name: str
-    specialization: str = None
+    first_name: str = Field(..., min_length=1)
+    specialization: Optional[str] = None
 
 class HairdresserOut(BaseModel):
     first_name: str
-    specialization: str = None
+    specialization: Optional[str] = None
     is_active: bool
     id: int
 

@@ -52,3 +52,32 @@ function validateBookingForm() {
     return isValid;
 }
 
+function validateNewHairdresserName() {
+
+    document.querySelectorAll('.error-message').forEach(error => {
+        error.classList.remove('visible');
+        error.textContent = '';
+    })
+
+    const input = document.getElementById('new-hairdresser-name')
+    const name = input.value.trim();
+    const nameRegex = /^[A-Za-zÀ-Żà-ż]+$/;
+
+    if (!name) {
+        showError('add-hairdresser-name-error', 'Imię barbera nie może pozostać puste');
+        return null;
+    }
+    else if (!nameRegex.test(name)) {
+        showError('add-hairdresser-name-error', 'Imię może zawierać tylko litery');
+        return null;
+    }
+    else {
+        const formattedName = 
+            name.charAt(0).toUpperCase() +
+            name.slice(1).toLowerCase();
+
+            input.value = formattedName;
+
+            return formattedName;
+    }
+}

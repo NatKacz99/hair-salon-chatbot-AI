@@ -16,7 +16,11 @@ async function login() {
         localStorage.setItem('admin_token', data.access_token);
         localStorage.setItem('admin_email', email);
         showDashboardAfterLogin();
-    } else {
+    } 
+    else if (response.status === 401) {
+        logout();
+    }
+    else {
         document.getElementById('login-error').style.display = "block"
     }
 }
@@ -27,6 +31,7 @@ async function showDashboardAfterLogin() {
 
     await loadMaps();
     loadReservations();
+    loadAllHairdressers();
 }
 
 window.onload = function() {
@@ -103,6 +108,53 @@ function showAdminPage(page) {
 function openAddHairdresser() {
     const modal = new bootstrap.Modal(document.getElementById('modal-add-hairdresser'));
     modal.show();
+}
+
+async function addHairdresser() {
+    const name = validateNewHairdresserName();
+    if (!name) return;
+
+    const specialization =
+        document.getElementById('new-hairdresser-specialization')
+        .value.trim();
+
+    const token = localStorage.getItem('admin_token');
+    try {
+        const res = await fetch(`${URL_BASE}/admin/hairdressers`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                first_name: name,
+                specialization: specialization || null
+            })
+        });
+    
+        if (res.ok) {
+            bootstrap.Modal.getInstance(
+                document.getElementById('modal-add-hairdresser')
+            ).hide();
+    
+            document.getElementById('new-hairdresser-name').value = "";
+            document.getElementById('new-hairdresser-specialization').value = "";
+    
+            loadAllHairdressers();
+        } 
+        else if (res.status === 422) {
+            showError('error-add-hairdresser-general', 'Niepoprawne dane formularza');
+            return;
+        }
+        else {
+            showError('error-add-hairdresser-general', 'Wystąpił błąd serwera');
+            return;
+        }
+
+    } catch (error) {
+        showError('error-add-hairdresser-general', 'Brak połączenia z serwerem');
+    }
+
 }
 
 let allReservations = [];
