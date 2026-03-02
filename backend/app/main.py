@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import auth, hairdressers, services, bookings
+from app.routers import auth, hairdressers, services, bookings, chat
 from app.database import Base, engine
 from app import models
 
@@ -23,3 +23,4 @@ app.include_router(auth.router)
 app.include_router(hairdressers.router)
 app.include_router(services.router)
 app.include_router(bookings.router)
+app.include_router(chat.router)
