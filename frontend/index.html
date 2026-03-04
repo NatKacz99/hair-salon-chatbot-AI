@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -445,6 +446,50 @@
 
 </div><!-- /page-kontakt -->
 
+<button class="chat-toggle" id="chat-toggle">
+  <i class="fas fa-robot"></i>
+</button>
+
+<div id="chat-widget" class="chat-widget">
+  <div class="chat-header">
+      <div class="chat-header-info">
+          <div class="chat-avatar">
+              <i class="fas fa-robot"></i>
+          </div>
+          <div class="chat-title">
+              <h4>Asystent recepcjonista</h4>
+              <div class="chat-status">
+                  <span class="status-dot online"></span>
+                  <span>Online</span>
+              </div>
+          </div>
+      </div>
+      <div class="chat-header-actions">
+          <button id="chat-close" class="chat-action-btn">
+              <i class="fas fa-times"></i>
+          </button>
+      </div>
+  </div>
+
+  <div id="chat-messages" class="chat-messages">
+
+  </div>
+
+  <div class="chat-input-container">
+      <form id="chat-form" class="chat-form">
+          <input
+              type="text"
+              id="chat-input"
+              class="chat-input"
+              placeholder="Wpisz wiadomość..."
+          />
+          <button type="submit" class="chat-send-btn">
+              <i class="fas fa-paper-plane"></i>
+          </button>
+      </form>
+  </div>
+</div>
+
 <footer>
   <div class="footer-grid">
     <div>
@@ -502,5 +547,6 @@
 </script>
 <script src="js/validation.js"></script>
 <script src="js/booking.js"></script>
+<script src="js/chatbot.js"></script>
 </body>
 </html>

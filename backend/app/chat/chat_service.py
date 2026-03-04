@@ -31,10 +31,12 @@ def get_system_prompt(db: Session) -> str:
     Zbierz od klienta następujace dane:
     - imię i nazwisko
     - numer telefonu
-    - wybranego fryzjera (użyj dokładnej nazy z listy)
+    - wybranego fryzjera (użyj dokładnej nazwy z listy)
     - wybraną usługę (użyj dokładnej nazwy z listy)
     - preferowaną datę i godzinę.
     Dzisiaj jest {today}. Rezerwacje przyjmujemy od dziś wzwyż.
+    Jeśli otrzymasz wynik funkcji, użyj danych ze struktury JSON, aby wygenerować
+    naturalną odpowiedź dla klienta.
     """
 
 tools  = [
@@ -42,7 +44,7 @@ tools  = [
         "type": "function",
         "function": {
             "name": "create_booking",
-            "descrtiption": "Tworzy rezereację wizyty do barbera, gdy klient poda wszystkie wymagane dane.",
+            "description": "Tworzy rezereację wizyty do barbera, gdy klient poda wszystkie wymagane dane.",
             "parameters": {
                 "type": "object",
                 "properties": {
