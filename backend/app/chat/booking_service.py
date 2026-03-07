@@ -6,16 +6,6 @@ from app.routers.bookings import get_available_slots
 from sqlalchemy.exc import IntegrityError
 
 def create_booking_from_chat(args: dict, db: Session) -> dict:
-    hairdresser = db.query(models.Hairdresser).filter(
-        models.Hairdresser.first_name.ilike(args["hairdresser_name"])
-    ).first()
-
-    if not hairdresser:
-        return {
-            "status": "hairdresser_not_found",
-            "provided_name": args["hairdresser_name"]
-        }
-
     service = db.query(models.Service).filter(
         models.Service.name.ilike(args["service_name"])
     ).first()
@@ -28,6 +18,44 @@ def create_booking_from_chat(args: dict, db: Session) -> dict:
 
     booking_datetime = datetime.fromisoformat(args["booking_datetime"])
 
+    hairdresser = None
+    hairdresser_name = args.get("hairdresser_name")
+
+    # if the hairdresser was given
+    if hairdresser_name:
+        hairdresser = db.query(models.Hairdresser).filter(
+            models.Hairdresser.first_name.ilike(hairdresser_name)
+        ).first()
+
+        if not hairdresser:
+            return {
+                "status": "hairdresser_not_found",
+                "provided_name": hairdresser_name
+            }
+    
+    # if the hairdresser was not given
+    else:
+        hairdressers = db.query(models.Hairdresser).all()
+
+        for available_hairdresser in hairdressers:
+            slots = get_available_slots(
+                hairdresser_id=available_hairdresser.id,
+                date=booking_datetime.date(),
+                service_id=service.id,
+                db=db
+            )
+
+            if booking_datetime.strftime("%H:%M") in slots["free_hours"]:
+                hairdresser = available_hairdresser
+                break
+
+        if not hairdresser:
+            return {
+                "status": "not_available_hairdresser",
+                "requested_time": booking_datetime.strftime("%H:%M"),
+                "date": booking_datetime.strftime("%d.%m.%Y")
+            }
+
     try:
         booking = models.Booking(
             client_name=args["client_name"],
@@ -39,7 +67,7 @@ def create_booking_from_chat(args: dict, db: Session) -> dict:
         )
 
         db.add(booking)
-        db.commit 
+        db.commit()
         db.refresh(booking)
 
         return {

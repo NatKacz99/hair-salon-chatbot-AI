@@ -64,7 +64,8 @@ def get_available_slots(hairdresser_id: int, date: date, service_id: int, db: Se
         models.Service, models.Booking.service_id == models.Service.id
     ).filter(
         models.Booking.hairdresser_id == hairdresser_id,
-        func.date(models.Booking.booking_datetime) == date
+        func.date(models.Booking.booking_datetime) == date,
+        models.Booking.status != "cancelled"
     ).all()
 
     occupied_slots = set()

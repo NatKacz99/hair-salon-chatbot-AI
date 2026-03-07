@@ -35,8 +35,21 @@ def get_system_prompt(db: Session) -> str:
     - wybraną usługę (użyj dokładnej nazwy z listy)
     - preferowaną datę i godzinę.
     Dzisiaj jest {today}. Rezerwacje przyjmujemy od dziś wzwyż.
-    Jeśli otrzymasz wynik funkcji, użyj danych ze struktury JSON, aby wygenerować
-    naturalną odpowiedź dla klienta.
+    Jeśli klient poda wszystkie dane potrzebne do rezerwacji:
+    - imię i nazwisko
+    - numer telefonu
+    - fryzjera (może podać, ale nie musi)
+    - usługę
+    - datę i godzinę
+    - uwagi do rezerwacji (może podać, ale nie musi) 
+    nie zadawaj dodatkowych pytań i nie proś o potwierdzenie.
+    Od razu wywołaj funkcję create_booking.
+    Nie informuj klienta, że coś sprawdzisz później ani że ma czekać.
+    System wykonuje operacje natychmiast i odpowiedź zawsze zawiera wynik.
+    Jeśli brakuje jakiejś informacji potrzebnej do rezerwacji,
+    poproś klienta tylko o brakującą informację.
+    Jeśli wszystkie dane są podane w jednej wiadomości,
+    natychmiast wykonaj rezerwację używając funkcji create_booking.
     """
 
 tools  = [
@@ -50,7 +63,7 @@ tools  = [
                 "properties": {
                     "client_name": {"type": "string", "description": "Imię oraz nazwisko klienta"},
                     "client_phone": {"type": "string", "description": "Numer telefonu klienta"},
-                    "hairdresser_name": {"type": "string", "description": "Imię fryzjera"},
+                    "hairdresser_name": {"type": "string", "description": "Imię fryzjera, jeśli klient wskazał konkretnego. Jeśli klient nie podał fryzjera, pole może zostać pominięte i system automatycznie wybierze pierwszego dostęnego fryzjera."},
                     "service_name": {"type": "string", "description": "Nazwa usługi"},
                     "booking_datetime": {"type": "string", "description": "Data + godzina w formacie ISO 8601: YYYY-MM-DDTHH:MM:00, np. 2026-03-05T13:00:00"},
                     "notes": {
@@ -58,7 +71,7 @@ tools  = [
                         "description": "Dodatkowe uwagi klienta co do rezerwacji, np. uwagi dotyczące strzyżenia"
                     }
                 },
-                "required": ["client_name", "client_phone", "hairdresser_name", "service_name", "booking_datetime"]
+                "required": ["client_name", "client_phone", "service_name", "booking_datetime"]
             }
         }
     },
@@ -95,10 +108,11 @@ tools  = [
     }
 ]
 
-def chat_with_client(message: ChatMessage, system_prompt: str, db: Session) -> str:
-    messages = [{"role": "system", "content": system_prompt}]
-    messages += message.history
-    messages.append({"role": "user", "content": message.message})
+def chat_with_client(message: ChatMessage, system_prompt: str, history, db: Session) -> str:
+    messages = [
+        {"role": "system", "content": system_prompt},
+        *history 
+    ]
 
     response = client.chat.completions.create(
         model="gpt-4o",
@@ -114,9 +128,11 @@ def chat_with_client(message: ChatMessage, system_prompt: str, db: Session) -> s
         args = json.loads(tool_call.function.arguments)
         print("Arguments from GPT:", args)
         tool_name = tool_call.function.name
+        print(f"Tool name: {tool_name}")
 
         if tool_name == "create_booking":
             result = create_booking_from_chat(args, db)
+            print("Result from create_booking_from_chat:", result)
         elif tool_name == "check_availability":
             result = check_availability_from_chat(args, db)
         elif tool_name == "cancel_booking":
@@ -131,12 +147,18 @@ def chat_with_client(message: ChatMessage, system_prompt: str, db: Session) -> s
             "tool_call_id": tool_call.id,
             "content": json.dumps(result)
         })
+        print("Messages after tool call:", messages)
 
         second_response = client.chat.completions.create(
             model="gpt-4o",
-            messages=messages
+            messages=messages,
+            tools=tools,
+            tool_choice="none"
         )
 
-        return second_response.choices[0].message.content
+        answer = second_response.choices[0].message.content
+        if not answer:
+            answer = "Rezerwacja została zapisana. Czy mogę w czymś jeszcze pomóc?"
+        return answer
 
     return response_message.content

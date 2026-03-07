@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, Float, ForeignKey, UniqueConstraint
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, Float, ForeignKey, UniqueConstraint, Text
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from .database import Base
@@ -44,3 +44,18 @@ class Service(Base):
     name = Column(String, nullable=False)
     duration_minutes = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
+
+class Conversation(Base):
+    __tablename__ = "conversations"
+
+    conversation_id = Column(Integer, primary_key=True, index=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class Message(Base):
+    __tablename__ = "messages"
+
+    message_id = Column(Integer, primary_key=True)
+    conversation_id = Column(Integer, ForeignKey("conversations.conversation_id"))
+    role = Column(String)
+    content = Column(Text)
+    created_at = Column(DateTime, default = datetime.utcnow)

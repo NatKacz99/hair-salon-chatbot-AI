@@ -22,6 +22,7 @@ function startChatbot() {
 
     chatInput.addEventListener('input', updateSendButtonState);
 
+    let conversationId = null;
     chatFrom.addEventListener('submit', async function(e) {
         e.preventDefault();
 
@@ -40,14 +41,16 @@ function startChatbot() {
                 },
                 body: JSON.stringify({
                     message: messageText,
-                    history: []
+                    conversation_id: conversationId
                 })
             });
             const data = await response.json();
 
             hideTyping();
+            conversationId = data.conversation_id;
             addBotMessageText(data.response);
         } catch (error) {
+            hideTyping();
             addBotMessageText("Błąd połączenia z serwerem.")
             console.error(error);
         }
@@ -123,4 +126,35 @@ function startChatbot() {
         chatToggle.classList.remove('hidden')
     }
 
+    const chatBubble = document.querySelector(".chat-bubble");
+    const chatBubbleText = document.getElementById("chat-bubble-message");
+
+    const message = "Zapraszam do kontaktu na czacie!";
+
+    let index = 0;
+
+    function typeMessage() {
+        if(index < message.length){
+            chatBubbleText.innerHTML += message.charAt(index);
+            index++;
+
+            setTimeout(typeMessage, 35)
+        }
+    }
+
+    setTimeout(() => {
+        chatBubble.style.display = "flex";
+        typeMessage();
+    }, 2000);
+
+    setTimeout(() => {
+        if(chatBubble) {
+            chatBubble.style.display = "none"
+        }}, 7000);
+
+    if(chatBubble) {
+        chatBubble.addEventListener("click", () => {
+            chatBubble.style.display = "none"
+        })
+    }
 }

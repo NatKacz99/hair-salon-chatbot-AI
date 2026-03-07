@@ -9,3 +9,7 @@ class ChatMessage(BaseModel):
 
 class ChatResponse(BaseModel):
     response: str
+
+class ChatMessage(BaseModel):
+    message: str
+    conversation_id: Optional[int] = None
