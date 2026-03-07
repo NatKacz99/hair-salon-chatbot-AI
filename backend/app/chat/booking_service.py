@@ -112,6 +112,11 @@ def create_booking_from_chat(args: dict, db: Session) -> dict:
         }
 
 def check_availability_from_chat(args: dict, db: Session) -> dict:
+    if not args.get("hairdresser_name"):
+        return {
+            "status": "missing_hairdresser"
+        }
+    
     hairdresser = db.query(models.Hairdresser).filter(
         models.Hairdresser.first_name.ilike(args["hairdresser_name"])
     ).first()
