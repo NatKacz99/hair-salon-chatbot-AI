@@ -32,6 +32,22 @@ def create_booking_from_chat(args: dict, db: Session) -> dict:
                 "status": "hairdresser_not_found",
                 "provided_name": hairdresser_name
             }
+
+        slots = get_available_slots(
+        hairdresser_id=hairdresser.id,
+        date=booking_datetime.date(),
+        service_id=service.id,
+        db=db
+        )   
+
+        if booking_datetime.strftime("%H:%M") not in slots["free_hours"]:
+            return {
+                "status": "slot_take",
+                "requested_time": booking_datetime.strftime("%H:%M"),
+                "date": booking_datetime.strftime("%d.%m.%Y"),
+                "hairdresser": hairdresser.first_name,
+                "free_hours": slots["free_hours"]
+            }
     
     # if the hairdresser was not given
     else:

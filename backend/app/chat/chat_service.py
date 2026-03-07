@@ -28,28 +28,27 @@ def get_system_prompt(db: Session) -> str:
     Pomagasz klientom umawiać wizytę.
     Dostepni fryzjerzy: {hairdressers_list}.
     Dostępne usługi: {services_list}.
-    Zbierz od klienta następujace dane:
-    - imię i nazwisko
-    - numer telefonu
-    - wybranego fryzjera (użyj dokładnej nazwy z listy)
-    - wybraną usługę (użyj dokładnej nazwy z listy)
-    - preferowaną datę i godzinę.
+    Jeśli klient poda uługę, datę i godzinę wizyty, najpierw sprawdź dostępność terminu
+    używając funkcji check_availability.
     Dzisiaj jest {today}. Rezerwacje przyjmujemy od dziś wzwyż.
-    Jeśli klient poda wszystkie dane potrzebne do rezerwacji:
-    - imię i nazwisko
-    - numer telefonu
-    - fryzjera (może podać, ale nie musi)
-    - usługę
-    - datę i godzinę
-    - uwagi do rezerwacji (może podać, ale nie musi) 
-    nie zadawaj dodatkowych pytań i nie proś o potwierdzenie.
-    Od razu wywołaj funkcję create_booking.
+    Jeśli klient poda usługę, datę i godzinę wizyty,
+    najpierw zawsze sprawdź dostępność terminu używając funkcji check_availability.
+    Jeśli termin jest dostepny i masz dane klienta (imię, nazwisko, usługa 
+    oraz numer telefonu), dopiero wtedy wywołaj funkcję create_booking.
+    Nigdy nie wywołuj create_booking bez wcześniejszego
+    sprawdzenia dostępności check_availability.
     Nie informuj klienta, że coś sprawdzisz później ani że ma czekać.
     System wykonuje operacje natychmiast i odpowiedź zawsze zawiera wynik.
     Jeśli brakuje jakiejś informacji potrzebnej do rezerwacji,
     poproś klienta tylko o brakującą informację.
-    Jeśli wszystkie dane są podane w jednej wiadomości,
-    natychmiast wykonaj rezerwację używając funkcji create_booking.
+    Jeśli użytkownik podał już imię, nazwisko lub numer telefonu wcześniej w rozmowie,
+    użyj tych danych ponownie przy wywołaniu funkcji create_booking.
+    Nie pytaj o te dane ponownie, jeśli są już dostępne w historii rozmowy.
+
+    Zasady używania narzędzi:
+    1. Jeśli znasz usługę, datę i godzinę wizyty -> użyj check_availability.
+    2. Jeśli termin jest dostępny i masz dane klienta -> użyj create_booking.
+    3. Jeśli termin jest zajęty -> zaproponuj inną datę/godzinę z odpowiedzi narzędzia.
     """
 
 tools  = [
@@ -57,7 +56,7 @@ tools  = [
         "type": "function",
         "function": {
             "name": "create_booking",
-            "description": "Tworzy rezereację wizyty do barbera, gdy klient poda wszystkie wymagane dane.",
+            "description": "Tworzy rezereację wizyty do barbera. Funkcja powinna być użyta dopiero po sprawdzeniu dostępności terminu za pomocą narzędzia check_availability.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -85,9 +84,10 @@ tools  = [
                 "properties": {
                     "hairdresser_name": {"type": "string", "description": "Imię fryzjera"},
                     "date": {"type": "string", "description": "Data w formacie: YYYY-MM-DD"},
+                    "time": {"type": "string", "description": "Godzina wizyty w formacie HH:MM"},
                     "service_name": {"type": "string", "description": "Nazwa usługi"}
                 },
-                "required": ["hairdresser_name", "date", "service_name"]
+                "required": ["date", "time", "service_name"]
             }
         }
     },
