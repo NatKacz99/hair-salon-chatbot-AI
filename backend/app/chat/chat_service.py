@@ -35,6 +35,9 @@ def get_system_prompt(db: Session) -> str:
     najpierw zawsze sprawdź dostępność terminu używając funkcji check_availability.
     Jeśli termin jest dostepny i masz dane klienta (imię, nazwisko, usługa 
     oraz numer telefonu), dopiero wtedy wywołaj funkcję create_booking.
+    Gdy klient mówi że nie ma preferencji co do fryzjera lub jest mu obojętne, 
+    NIE pytaj ponownie o fryzjera. Od razu wywołaj narzędzie create_booking 
+    bez pola hairdresser_name — system sam przypisze wolnego fryzjera.
     Nigdy nie wywołuj create_booking bez wcześniejszego
     sprawdzenia dostępności check_availability.
     Nie informuj klienta, że coś sprawdzisz później ani że ma czekać.
@@ -46,8 +49,8 @@ def get_system_prompt(db: Session) -> str:
     Nie pytaj o te dane ponownie, jeśli są już dostępne w historii rozmowy.
 
     Zasady używania narzędzi:
-    1. Jeśli znasz usługę, datę i godzinę wizyty -> użyj check_availability.
-    2. Jeśli termin jest dostępny i masz dane klienta -> użyj create_booking.
+    1. Jeśli klient ma preferencje co do fryzjera i znasz usługę, datę i godzinę -> użyj check_availability, a potem create_booking.
+    2. Jeśli klient nie ma preferencji co do fryzjera i znasz usługę, datę, godzinę oraz dane klienta -> od razu wywołaj create_booking BEZ hairdresser_name. NIE używaj wtedy check_availability.
     3. Jeśli termin jest zajęty -> zaproponuj inną datę/godzinę z odpowiedzi narzędzia.
     """
 
