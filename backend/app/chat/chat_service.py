@@ -95,7 +95,7 @@ tools  = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "hairdresser_name": {"type": "string", "description": "Imię fryzjera"},
+                    "hairdresser_name": {"type": "string", "description": "Imię fryzjera, jeśli klient wskazał konkretnego"},
                     "date": {"type": "string", "description": "Data w formacie: YYYY-MM-DD"},
                     "time": {"type": "string", "description": "Godzina wizyty w formacie HH:MM"},
                     "service_name": {"type": "string", "description": "Nazwa usługi"}

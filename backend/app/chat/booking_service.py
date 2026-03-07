@@ -112,21 +112,6 @@ def create_booking_from_chat(args: dict, db: Session) -> dict:
         }
 
 def check_availability_from_chat(args: dict, db: Session) -> dict:
-    if not args.get("hairdresser_name"):
-        return {
-            "status": "missing_hairdresser"
-        }
-    
-    hairdresser = db.query(models.Hairdresser).filter(
-        models.Hairdresser.first_name.ilike(args["hairdresser_name"])
-    ).first()
-
-    if not hairdresser:
-        return {
-            "status": "hairdresser_not_found",
-            "provided_name": args["hairdresser_name"]
-        }
-
     service = db.query(models.Service).filter(
         models.Service.name.ilike(args["service_name"])
     ).first()
@@ -137,25 +122,60 @@ def check_availability_from_chat(args: dict, db: Session) -> dict:
             "provided_name": args["service_name"]
         }
 
-    slots = get_available_slots(
-        hairdresser_id=hairdresser.id,
-        date=args["date"],
-        service_id=service.id,
-        db=db
-    )
+    hairdresser_name = args.get("hairdresser_name")
 
-    if not slots["free_hours"]:
+    if hairdresser_name:
+        hairdresser = db.query(models.Hairdresser).filter(
+            models.Hairdresser.first_name.ilike(hairdresser_name)
+        ).first()
+
+        if not hairdresser:
+            return {
+                "status": "hairdresser_not_found",
+                "provided_name": hairdresser_name
+            }
+
+        slots = get_available_slots(
+            hairdresser_id=hairdresser.id,
+            date=args["date"],
+            service_id=service.id,
+            db=db
+        )
+
+        return {
+            "status": "success",
+            "date": args["date"],
+            "hairdresser": hairdresser.first_name,
+            "free_hours": slots["free_hours"]
+        }
+
+    hairdressers = db.query(models.Hairdresser).all()
+
+    available_hairdressers = []
+
+    for hairdresser in hairdressers:
+        slots = get_available_slots(
+            hairdresser_id=hairdresser.id,
+            date=args["date"],
+            service_id=service.id,
+            db=db
+        )
+
+        if slots["free_hours"]:
+            available_hairdressers.append({
+                "hairdresser": hairdresser.first_name,
+                "free_hours": slots["free_hours"]})
+
+    if not available_hairdressers:
         return {
             "status": "no_slots",
-            "date": args["date"],
-            "hairdresser": hairdresser.first_name
+            "date": args["date"]
         }
 
     return {
         "status": "success",
         "date": args["date"],
-        "hairdresser": hairdresser.first_name,
-        "free_hours": slots["free_hours"]
+        "available_hairdressers": "available_hairdressers"
     }
 
 def cancel_booking_from_chat(args: dict, db: Session) -> dict:
