@@ -44,6 +44,8 @@ Zasady obsługi rezerwacji:
           * Następnie wywołaj create_booking z polem hairdresser_name.
       - Jeśli klient nie ma preferencji co do fryzjera i masz już dane klienta:
           * Od razu wywołaj create_booking **bez pola hairdresser_name**.
+          Jeśli klient nie poda fryzjera, system automatycznie wybierze pierwszego 
+          dostępnego fryzjera.
       - Jeśli dane klienta są niekompletne, poproś tylko o brakujące informacje.
 
 2. Jeśli klient wcześniej podał swoje dane (imię, nazwisko lub numer telefonu), użyj ich 
