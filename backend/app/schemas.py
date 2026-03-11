@@ -14,7 +14,7 @@ class HairdresserOut(BaseModel):
     id: int
 
     class Config:
-        from_attributes: True
+        from_attributes = True
 
 class ServiceCreate(BaseModel):
     name: str
@@ -25,7 +25,7 @@ class ServiceOut(ServiceCreate):
     id: int
 
     class Config:
-        from_attributes: True
+        from_attributes = True
 
 class BookingCreate(BaseModel):
     hairdresser_id: int

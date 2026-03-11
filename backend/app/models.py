@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Float, ForeignKey, UniqueConstraint, Text
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from datetime import datetime, timezone
 from .database import Base
 
 class AdminUser(Base):
@@ -18,7 +18,7 @@ class Hairdresser(Base):
     first_name = Column(String, nullable=False)
     specialization = Column(String)
     is_active = Column(Boolean, default=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
 class Booking(Base):
     __tablename__ = "bookings"
@@ -30,7 +30,7 @@ class Booking(Base):
     client_phone = Column(String, nullable=False)
     booking_datetime = Column(DateTime, nullable=False)
     status = Column(String, default="scheduled")
-    created_at = Column(DateTime, default = datetime.utcnow)
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     notes = Column(String(500), nullable=True)
 
     __table_args__ = (
@@ -49,7 +49,7 @@ class Conversation(Base):
     __tablename__ = "conversations"
 
     conversation_id = Column(Integer, primary_key=True, index=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
 class Message(Base):
     __tablename__ = "messages"
@@ -58,4 +58,4 @@ class Message(Base):
     conversation_id = Column(Integer, ForeignKey("conversations.conversation_id"))
     role = Column(String)
     content = Column(Text)
-    created_at = Column(DateTime, default = datetime.utcnow)
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))

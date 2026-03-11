@@ -42,7 +42,7 @@ def create_booking_from_chat(args: dict, db: Session) -> dict:
 
         if booking_datetime.strftime("%H:%M") not in slots["free_hours"]:
             return {
-                "status": "slot_take",
+                "status": "slot_taken",
                 "requested_time": booking_datetime.strftime("%H:%M"),
                 "date": booking_datetime.strftime("%d.%m.%Y"),
                 "hairdresser": hairdresser.first_name,
@@ -175,7 +175,7 @@ def check_availability_from_chat(args: dict, db: Session) -> dict:
     return {
         "status": "success",
         "date": args["date"],
-        "available_hairdressers": "available_hairdressers"
+        "available_hairdressers": available_hairdressers
     }
 
 def cancel_booking_from_chat(args: dict, db: Session) -> dict:

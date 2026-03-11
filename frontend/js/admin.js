@@ -1,5 +1,3 @@
-URL_BASE = "http://127.0.0.1:8000";
-
 let servicesMap = {};
 let hairdressersMap = {};
 
@@ -7,7 +5,7 @@ async function login() {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    const res = await fetch(`${URL_BASE}/login?email=${email}&password=${password}`, {
+    const res = await fetch(`${CONFIG.API_URL}/login?email=${email}&password=${password}`, {
         method: 'POST'
     });
 
@@ -42,7 +40,7 @@ let allHairdressers = [];
 
 async function loadAllHairdressers() {
     const token = localStorage.getItem('admin_token');
-    const res = await fetch(`${URL_BASE}/admin/hairdressers`, {
+    const res = await fetch(`${CONFIG.API_URL}/admin/hairdressers`, {
         headers: {'Authorization': `Bearer ${token}`}
     })
 
@@ -122,7 +120,7 @@ async function addHairdresser() {
 
     const token = localStorage.getItem('admin_token');
     try {
-        const res = await fetch(`${URL_BASE}/admin/hairdressers`, {
+        const res = await fetch(`${CONFIG.API_URL}/admin/hairdressers`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -167,7 +165,7 @@ async function addHairdresser() {
 let allReservations = [];
 async function loadReservations() {
     const token = localStorage.getItem('admin_token');
-    const res = await fetch(`${URL_BASE}/admin/bookings`, {
+    const res = await fetch(`${CONFIG.API_URL}/admin/bookings`, {
         headers: {'Authorization': `Bearer ${token}`}
     });
 
@@ -198,8 +196,8 @@ function filterReservations() {
 
 async function loadMaps() {
     const [servicesRes, hairdressersRes] = await Promise.all([
-        fetch(`${URL_BASE}/services`),
-        fetch(`${URL_BASE}/hairdressers`)
+        fetch(`${CONFIG.API_URL}/services`),
+        fetch(`${CONFIG.API_URL}/hairdressers`)
     ]);
 
     const services = await servicesRes.json();
@@ -248,7 +246,7 @@ async function changeStatus() {
 
     console.log('id:', id, 'status:', status);
 
-    const res = await fetch(`${URL_BASE}/admin/bookings/${id}?status=${status}`, {
+    const res = await fetch(`${CONFIG.API_URL}/admin/bookings/${id}?status=${status}`, {
         method: 'PATCH',
         headers: {'Authorization': `Bearer ${token}`}
     });
@@ -282,7 +280,7 @@ async function confirmDeleteHairdresser()  {
 
     const token = localStorage.getItem('admin_token');
 
-    const res = await fetch(`${URL_BASE}/admin/hairdressers/${barberIdToDelete}`, {
+    const res = await fetch(`${CONFIG.API_URL}/admin/hairdressers/${barberIdToDelete}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}` 
